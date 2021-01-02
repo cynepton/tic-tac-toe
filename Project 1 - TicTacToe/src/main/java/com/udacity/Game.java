@@ -69,7 +69,7 @@ public class Game {
      * @return boolean: true if play was successful, false if invalid play
      */
     public boolean playAt(int i, int j){
-        //check for index boundries
+        //check for index boundaries
         if(i>=3||j>=3||i<0||j<0)
             return false;
         //check if this position is available
@@ -93,7 +93,7 @@ public class Game {
     }
 
     /**
-     * Performs the winner chack and displayes a message if game is over
+     * Performs the winner check and displays a message if game is over
      * @return true if game is over to start a new game
      */
     public boolean doChecks() {
@@ -151,6 +151,53 @@ public class Game {
     public String checkGameWinner(char [][]grid){
         String result = "None";
         //Student code goes here ...
+
+        // Check if the columns are the same
+        for (int i = 0; i < 3; i++) {
+            if ((grid[i][0] == grid[i][1]) && (grid[i][1] == grid[i][2])) {
+                if (grid[i][0] != '-') {
+                    String won = " wins!";
+                    String winner = String.valueOf(grid[i][0]);
+                    return  winner + won;
+                }
+            }
+        }
+
+        // Check if the rows are the same
+        for (int j = 0; j < 3; j++) {
+            if ((grid[j][0] == grid[j][1]) && (grid[j][1] == grid[j][2])) {
+                if (grid[j][0] != '-') {
+                    String won = " wins";
+                    String winner = String.valueOf(grid[j][0]);
+                    return  winner + won;
+                }
+            }
+        }
+
+        // Check if the diagonals are the same
+        if ((grid[0][0] != '-' || grid[0][2] != '-') && grid[1][1] != '-') {
+            char center = grid[1][1];
+            if ((grid[0][0] == center && center == grid[2][2]) || (grid[0][2] == center && center == grid[2][0])) {
+                String won = " wins";
+                String winner = String.valueOf(center);
+                return  winner + won;
+            }
+        }
+
+        Boolean cont = true;
+        int count = 0;
+        // Check for tie
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                count++;
+                if (grid[i][j] == '-'){
+                    break;
+                }
+                if (count == 9){
+                    return "Tie";
+                }
+            }
+        }
         return result;
     }
 
